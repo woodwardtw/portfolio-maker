@@ -48,16 +48,27 @@ function gform_site_cloner($entry, $form){
     $ns_site_cloner = new ns_cloner();
     $ns_site_cloner->process();
 
+    $about = 'here is the about page content';
+    $teaching = 'here is the teaching page content';
+    $research = 'here is the research page content';
+
     $site_id = $ns_site_cloner->target_id;
     $site_info = get_blog_details( $site_id );
     if ( $site_info ) {
      // Clone successful!
+        switch_to_blog($site_id);        
 
     }
 }
 
 //add created sites to cloner posts
 add_action( 'gform_after_submission_1', 'gform_new_site_to_acf', 10, 2 );//specific to the gravity form id
+
+
+function getPortfolioPage($title){
+    $page = get_page_by_title($title);
+    
+}
 
 
 class Docx_reader {
