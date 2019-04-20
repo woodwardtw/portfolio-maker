@@ -1,0 +1,25 @@
+.dup-button {
+	display: block;
+	padding: 10px;
+	margin: 10px auto;
+	background-color: #f60014;
+	color: #fff;
+	text-transform: uppercase;
+	font-family: 'Lato', Helvetica, sans-serif;
+	font-weight: 800;
+	border-radius: 5px;
+	transition: all .3s;
+	border: 2px solid #f60014;
+	text-align: center;
+	width: 250px;
+}
+
+.dup-button:hover {
+	background-color: #fff;
+	border: 2px solid #f60014;
+}
+
+#domain-name.success {
+	border-left: 8px solid green ;
+  padding-left: 8px; 
+}
