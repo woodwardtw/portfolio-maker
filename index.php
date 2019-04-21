@@ -48,7 +48,7 @@ function make_portfolio_cloner($entry, $form){
 
 
     //NOW DEAL WITH DOCX FILES
-    $about = 'here is the about page content';
+    $about = docToPage('http://192.168.33.10/wordpress/sbees/wp-content/uploads/sites/35/2019/04/Support-for-Making-Better-Computer-Choices.docx');
     $teaching = 'here is the teaching page content';
     $research = 'here is the research page content';
 
@@ -75,7 +75,6 @@ function makePortfolioPage($title,$content){
 
 // Update the post into the database
   wp_update_post( $new_page );
-
 
 }
 
@@ -191,8 +190,8 @@ class Docx_reader {
             $namespaces = $xml->getNamespaces(true);
 
             $children = $xml->children($namespaces['w']);
-
-            $html = '<!doctype html><html><head><meta http-equiv="Content-Type" content="text/html;charset=utf-8" /><title></title><style>span.block { display: block; }</style></head><body>';
+            $html = '';
+            //$html = '<!doctype html><html><head><meta http-equiv="Content-Type" content="text/html;charset=utf-8" /><title></title><style>span.block { display: block; }</style></head><body>';
 
             foreach ($children->body->p as $p) {
                 $style = '';
@@ -285,7 +284,8 @@ class Docx_reader {
 END;
             preg_replace($regex, '$1', $html);
 
-            return $html . '</body></html>';
+            //return $html . '</body></html>';
+            return $html;
             exit();
         }
     }
@@ -298,4 +298,19 @@ END;
         
     }
 
+}
+
+function docToPage($url){
+    $doc = new Docx_reader();
+    $doc->setFile($url);
+
+    if(!$doc->get_errors()) {
+        $html = $doc->to_html();
+        $plain_text = $doc->to_plain_text();
+
+        echo $html;
+    } else {
+        echo implode(', ',$doc->get_errors());
+    }
+   return $html;
 }
