@@ -51,20 +51,28 @@ function make_portfolio_cloner($entry, $form){
    $upload_url = GFFormsModel::get_upload_url( $entry[ 'form_id' ] );
 
    $about_file = str_replace( $upload_url, $upload_path, $entry[ '3' ] );
-   var_dump($about_file);
+   $research_file = str_replace( $upload_url, $upload_path, $entry[ '4' ] );
+   $teaching_file = str_replace( $upload_url, $upload_path, $entry[ '5' ] );
+
     //NOW DEAL WITH DOCX FILES
     $about = docToPage($about_file);
-    $teaching = 'here is the teaching page content';
-    $research = 'here is the research page content';
+    $research = docToPage($research_file);
+    $teaching = docToPage($teachingt_file);
 
     $site_id = $ns_site_cloner->target_id;
     $site_info = get_blog_details( $site_id );
     if ( $site_info ) {
      // Clone successful!
-        switch_to_blog($site_id);        
-        makePortfolioPage('About', $about);
-        makePortfolioPage('Teaching', $teaching);
-        makePortfolioPage('Research', $research);
+        switch_to_blog($site_id);    
+        if($about){
+            makePortfolioPage('About', $about);
+        }   
+        if ($teaching){
+            makePortfolioPage('Teaching', $teaching); 
+        } 
+        if($research){
+            makePortfolioPage('Research', $research);
+        }
     }
 }
 
