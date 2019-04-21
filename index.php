@@ -91,7 +91,7 @@ function makePortfolioPage($title,$content){
 
 }
 
-
+//FROM https://github.com/xylude/Docx-to-HTML/blob/master/docx_reader.php
 class Docx_reader {
 
     private $fileData = false;
