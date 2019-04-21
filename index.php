@@ -35,7 +35,7 @@ function make_portfolio_cloner($entry, $form){
     $_POST =  [
           'action'         => 'process',
           'clone_mode'     => 'core',
-          'source_id'      => 30, //specific to the site your cloneing
+          'source_id'      => 30, //specific to the site you wish to clone - set it up with the about, research, teaching pages
           'target_name'    => rgar( $entry, '1' ), //specific to the form entry fields - need to parallel site url restrictions URL/DOMAIN
           'target_title'   => rgar( $entry, '2' ), //specific to the form entry fields TITLE
           'disable_addons' => true,
@@ -321,7 +321,7 @@ function docToPage($url){
         $html = $doc->to_html();
         $plain_text = $doc->to_plain_text();
 
-        echo $html;
+        //echo $html;
     } else {
         echo implode(', ',$doc->get_errors());
     }
