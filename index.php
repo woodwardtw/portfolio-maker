@@ -65,9 +65,18 @@ function gform_site_cloner($entry, $form){
 add_action( 'gform_after_submission_1', 'gform_new_site_to_acf', 10, 2 );//specific to the gravity form id
 
 
-function getPortfolioPage($title){
-    $page = get_page_by_title($title);
-    
+function getPortfolioPage($title,$content){
+    $page_id = get_page_by_title($title);
+    // Update post 37
+  $new_page = array(
+      'ID'           => $page_id,
+      'post_content' => $content,
+  );
+
+// Update the post into the database
+  wp_update_post( $new_page );
+
+
 }
 
 
