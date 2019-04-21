@@ -19,19 +19,18 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
 // built as a result https://twitter.com/JohnStewartPhD/status/1116874603157184512
 
-add_action('wp_enqueue_scripts', 'opened_duplicator_scripts');
+add_action('wp_enqueue_scripts', 'portfolio_duplicator_scripts');
 
-function opened_duplicator_scripts() {                           
+function portfolio_duplicator_scripts() {                           
     $deps = array('jquery');
     $version= '1.0'; 
     $in_footer = true;    
-    wp_enqueue_script('opened-dup-main-js', plugin_dir_url( __FILE__) . 'js/opened-dup-main.js', $deps, $version, $in_footer); 
-    wp_enqueue_style( 'opened-dup-main-css', plugin_dir_url( __FILE__) . 'css/opened-dup-main.css');
+    wp_enqueue_script('portfolio-dup-main-js', plugin_dir_url( __FILE__) . 'js/portfolio-dup-main.js', $deps, $version, $in_footer); 
+    wp_enqueue_style( 'portfolio-dup-main-css', plugin_dir_url( __FILE__) . 'css/portfolioi-dup-main.css');
 }
 
-add_action( 'gform_after_submission_1', 'gform_site_cloner', 10, 2 );//specific to the gravity form id
-
-function gform_site_cloner($entry, $form){
+add_action( 'gform_after_submission_1', 'gform_portfolio_cloner', 10, 2 );//specific to the gravity form id
+function gform_portfolio_cloner($entry, $form){
     $_POST =  [
           'action'         => 'process',
           'clone_mode'     => 'core',
@@ -48,6 +47,8 @@ function gform_site_cloner($entry, $form){
     $ns_site_cloner = new ns_cloner();
     $ns_site_cloner->process();
 
+
+    //NOW DEAL WITH DOCX FILES
     $about = 'here is the about page content';
     $teaching = 'here is the teaching page content';
     $research = 'here is the research page content';
@@ -57,15 +58,15 @@ function gform_site_cloner($entry, $form){
     if ( $site_info ) {
      // Clone successful!
         switch_to_blog($site_id);        
-
+        makePortfolioPage('About', $about);
+        makePortfolioPage('Teaching', $teaching);
+        makePortfolioPage('Research', $research);
     }
 }
 
-//add created sites to cloner posts
-add_action( 'gform_after_submission_1', 'gform_new_site_to_acf', 10, 2 );//specific to the gravity form id
 
 
-function getPortfolioPage($title,$content){
+function makePortfolioPage($title,$content){
     $page_id = get_page_by_title($title);
     // Update post 37
   $new_page = array(
