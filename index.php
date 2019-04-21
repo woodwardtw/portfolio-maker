@@ -12,8 +12,8 @@ Domain Path: /languages
 Text Domain: opened-duplicator
 
 */
-namespace Docx_reader;
-use ZipArchive;
+//namespace Docx_reader;
+//use ZipArchive;
 
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
@@ -29,8 +29,9 @@ function portfolio_duplicator_scripts() {
     wp_enqueue_style( 'portfolio-dup-main-css', plugin_dir_url( __FILE__) . 'css/portfolioi-dup-main.css');
 }
 
-add_action( 'gform_after_submission_1', 'gform_portfolio_cloner', 10, 2 );//specific to the gravity form id
-function gform_portfolio_cloner($entry, $form){
+add_action( 'gform_after_submission_1', 'make_portfolio_cloner', 10, 2 );//specific to the gravity form id
+
+function make_portfolio_cloner($entry, $form){
     $_POST =  [
           'action'         => 'process',
           'clone_mode'     => 'core',
@@ -40,8 +41,6 @@ function gform_portfolio_cloner($entry, $form){
           'disable_addons' => true,
           'clone_nonce'    => wp_create_nonce('ns_cloner')
       ];
-
-
     
     // Setup clone process and run it.
     $ns_site_cloner = new ns_cloner();
@@ -70,7 +69,7 @@ function makePortfolioPage($title,$content){
     $page_id = get_page_by_title($title);
     // Update post 37
   $new_page = array(
-      'ID'           => $page_id,
+      'ID'           => $page_id->ID,
       'post_content' => $content,
   );
 
