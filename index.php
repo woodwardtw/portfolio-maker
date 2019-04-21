@@ -57,7 +57,7 @@ function make_portfolio_cloner($entry, $form){
     //NOW DEAL WITH DOCX FILES
     $about = docToPage($about_file);
     $research = docToPage($research_file);
-    $teaching = docToPage($teachingt_file);
+    $teaching = docToPage($teaching_file);
 
     $site_id = $ns_site_cloner->target_id;
     $site_info = get_blog_details( $site_id );
