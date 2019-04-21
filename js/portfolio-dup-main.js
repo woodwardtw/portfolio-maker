@@ -1,5 +1,5 @@
 //from https://stackoverflow.com/questions/44933411/allow-only-letters-numbers-and-hyphen-in-input 
-document.getElementById("input_1_3").addEventListener("input", function(e) {
+document.getElementById("input_1_1").addEventListener("input", function(e) {
     // Get all inputs in the form we specifically are looking at, this selector can be
     // changed if this is supposed to be applied to specific inputs
     var inputs = document.querySelectorAll('#input_1_3');

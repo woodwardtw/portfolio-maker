@@ -46,9 +46,14 @@ function make_portfolio_cloner($entry, $form){
     $ns_site_cloner = new ns_cloner();
     $ns_site_cloner->process();
 
+//FILE PATH
+   $upload_path = GFFormsModel::get_upload_path( $entry[ 'form_id' ] );
+   $upload_url = GFFormsModel::get_upload_url( $entry[ 'form_id' ] );
 
+   $about_file = str_replace( $upload_url, $upload_path, $entry[ '3' ] );
+   var_dump($about_file);
     //NOW DEAL WITH DOCX FILES
-    $about = docToPage('http://192.168.33.10/wordpress/sbees/wp-content/uploads/sites/35/2019/04/Support-for-Making-Better-Computer-Choices.docx');
+    $about = docToPage($about_file);
     $teaching = 'here is the teaching page content';
     $research = 'here is the research page content';
 
